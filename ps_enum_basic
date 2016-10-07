@@ -1,0 +1,17 @@
+#This is a simple powershell script that enumerates basic system and file information on a host 
+ 
+#process information:  
+gwmi win32_process | select name, processid, parentprocessid | sort parentprocessid  
+#Get-process  
+ 
+#Directory information:  
+Get-childitem c:\windows | select name, mode, lastwritetime | sort lastwritetime  
+#File Information:  
+$EnumUsers = @{}  
+    foreach ($User in (Get-childitem c:\users | select-object Name)){  
+        get-childitem >> c:\Users\<username>\EnumUsers.txt  
+     }  
+#System configuration information:  
+systeminfo  
+#Network Information:  
+Netstat -naobv 
