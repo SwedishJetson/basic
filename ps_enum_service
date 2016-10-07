@@ -1,0 +1,13 @@
+#This is a Powershell script that enumerates services on a Windows machine.
+
+
+ 
+$Readout1 = Read-Host "Welcome to SwedishJetson's Service Enumeration Tool. Press <enter> to build a list of running processes." 
+ 
+#$Readout2 = Read-Host "Building your list of running processes" 
+ 
+& gps | select ProcessName, Handles, npm, vm, sessionid, path 
+ 
+$Process = Read-Host -Prompt "Please enter a process name to enumerate from the list above." 
+ 
+& C:\Windows\System32\SysInternalsSuite\listdlls.exe $Process 
