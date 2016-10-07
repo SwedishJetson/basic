@@ -1,4 +1,4 @@
-#This is a simple powershell script that enumerates basic system and file information on a host
+#This is a simple Powershell script that enumerates basic system and file information on a host.
 
 #Do not run this program on or against a host for which you are not the administrator!
 #If you don't understand what this script does, then you shouldn't be running it. Go back and do some research first!
