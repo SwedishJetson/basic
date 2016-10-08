@@ -1,0 +1,71 @@
+#!/bin/bash 
+ 
+#This is the solution to the "Samba" exercise...I think. 
+#Run the accompanying sambateardown.sh first to make sure everything is clean before this is executed. 
+#Run this script as root. 
+ 
+#Creates a directory named "/cctcsmb". Will "share" it later. 
+mkdir /cctcsmb 
+echo "/cctcsmb directory added." 
+ls / 
+echo 
+sleep 1 
+ 
+#Gives read, write, and execute permissions to the owner and group, with no permissions to "other". 
+chmod 770 /cctcsmb 
+echo "Gave read, write, and execute permissions to the owner and group, with no permissions to other." 
+ls -l / 
+echo 
+sleep 1 
+ 
+#Creates three files within the /cctcsmb shared directory. 
+touch /cctcsmb/file1 
+touch /cctcsmb/file2 
+touch /cctcsmb/file3 
+echo "Created three files within the /cctcsmb shared directory." 
+ls /cctcsmb 
+echo 
+sleep 1 
+ 
+#Creates the user "samcctc". 
+useradd samcctc 
+echo "New user, samcctc added." 
+cat /etc/passwd | grep samcctc 
+echo 
+sleep 1 
+ 
+#Creates the group "smbusers" 
+groupadd smbusers 
+echo "New group, smbusers added." 
+echo 
+sleep 1 
+ 
+#Adds the user "samcctc" to the group "sambausers" 
+usermod -a -G smbusers samcctc 
+echo "User samcctc added to the group smbusers." 
+echo 
+sleep 1 
+ 
+#Gives ownership of the /cctcsmb to the user "samcctc". 
+chown samcctc /cctcsmb 
+echo "Gave ownership of the /cctcsmb to the user samcctc." 
+ls -l / | grep cctcsmb 
+echo 
+sleep 1 
+ 
+#Configures the smb.conf file with the share definitions so that smb.conf allows guest access, is not read only, and can also be browsed. 
+echo '[cctcsmb]' >> /etc/samba/smb.conf 
+echo '[path] = /cctcsmb' >> /etc/samba/smb.conf 
+echo 'guest ok = yes' >> /etc/samba/smb.conf 
+echo 'read only = no' >> /etc/samba/smb.conf 
+echo 'browseable = yes' >> /etc/samba/smb.conf 
+echo "Configured the smb.conf file with the share definitions so that smb.conf allows guest access, is not read only, and can also be browsed." 
+cat /etc/samba/smb.conf | grep cctcsmb -C 5 
+echo 
+sleep 1 
+ 
+#Restarts the samba service. 
+service smbd restart 
+echo "smbd service restarted" 
+service smbd status | grep smbd.service -C 2 
+echo "Complete."
