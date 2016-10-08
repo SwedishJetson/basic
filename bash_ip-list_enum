@@ -1,0 +1,41 @@
+#!/bin/bash 
+ 
+#This script brought to you by your friendly neighborhood ARCOG... 
+#Script accepts a text file list (from user input) of ips and performs the following actions: 
+#pulls MAC address - complete 
+#pulls hostname - complete 
+#Pulls OS - complete 
+#Lists open ports (25 most popular) - complete 
+#Mentions whether a device is a network device or not - complete 
+ 
+rm report.txt 2>/dev/null 
+ 
+echo "Please enter filename to use." 
+read -e filename 
+echo "Building report, you may want to grab a Snickers..." 
+ 
+for line in $(cat $filename) ; do     
+    nmap $line --top-ports 25 -O > results.txt     
+    echo "Report for" $line "follows." >> report.txt 
+    phys_address=$(cat results.txt | grep MAC | cut -d" " -f3) 
+    os=$(cat results.txt | grep Running) 
+    hname=$(cat results.txt | grep report | cut -d" " -f5) 
+    open=$(cat results.txt | grep open | awk {'print $1,$3'}) 
+    echo "Physical address is" $phys_address >> report.txt 
+    echo $os >> report.txt 
+    echo "Hostname is" $hname >> report.txt 
+    echo "Open ports are" $open >> report.txt 
+     
+    if [[ $(cat results.txt | grep 'Running' | cut -d" " -f2) = 'Cisco' ]] ; then 
+    echo $line IS a network device************ >> report.txt 
+    fi     
+ 
+    echo >> report.txt 
+    echo 
+    echo $line complete. "Still goin'." 
+ 
+done 
+ 
+echo "Complete!" 
+ 
+exit 
