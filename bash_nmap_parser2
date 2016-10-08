@@ -1,3 +1,6 @@
+#This is piece two of a two piece bash script that can be used to parse through text-based NMAP results (nmap_results.txt).
+#The purpose is to quickly and cleanly see the services that are being run on a network.
+
 #Do not run this program on or against a host for which you are not the administrator!
 #If you don't understand what this script does, then you shouldn't be running it. Go back and do some research first!
 #Respect people's privacy!
@@ -7,7 +10,7 @@
 
 #!/bin/bash 
  
-#There is no need to run this script. It is run from within the l2skills.sh script. 
+#There is no need to run this script. It is run from within the nmap_parser1.sh script. 
  
 if [ $# -lt 2 ] ; 
 then 
