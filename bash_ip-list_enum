@@ -1,16 +1,18 @@
-#!/bin/bash 
- 
-#This script brought to you by your friendly neighborhood ARCOG... 
-#Script accepts a text file list (from user input) of ips and performs the following actions: 
-#pulls MAC address - complete 
-#pulls hostname - complete 
-#Pulls OS - complete 
-#Lists open ports (25 most popular) - complete 
-#Mentions whether a device is a network device or not - complete 
+#This is a bash script that accepts a text file list (from user input) of ips and performs the following actions: 
+#pulls MAC address, hostname, OS, open ports (25 most popular), and mentions whether a device is Cisco or not.
+
+#Do not run this program on or against a host for which you are not the administrator!
+#If you don't understand what this script does, then you shouldn't be running it. Go back and do some research first!
+#Respect people's privacy!
+#Run all scripts responsibly!
+#The author of this script assumes ZERO responsibility for harm caused to systems on which this script is run.
+#The author of this script assumes ZERO responsibility for any punitive damages that befall you because you didn't read/heed the above.
+
+#!/bin/bash  
  
 rm report.txt 2>/dev/null 
  
-echo "Please enter filename to use." 
+echo "Please enter filename to use. File should be a clean list of IPs, delimited with carriage returns." 
 read -e filename 
 echo "Building report, you may want to grab a Snickers..." 
  
