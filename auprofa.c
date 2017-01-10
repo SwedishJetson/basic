@@ -1,15 +1,17 @@
+/* 
+Read all available inotify events from the file descriptor 'fd'.
+wd is the table of watch descriptors for the directories in argv.
+argc is the length of wd and argv.
+argv is the list of watched directories.
+Entry 0 of wd and argv is unused.
+*/
+
 #include <errno.h>
 #include <poll.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/inotify.h>
 #include <unistd.h>
-
-       /* Read all available inotify events from the file descriptor 'fd'.
-          wd is the table of watch descriptors for the directories in argv.
-          argc is the length of wd and argv.
-          argv is the list of watched directories.
-          Entry 0 of wd and argv is unused. */
 
        static void
        handle_events(int fd, int *wd, int argc, char* argv[])
